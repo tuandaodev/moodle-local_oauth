@@ -33,6 +33,13 @@ function get_authorization_from_form($url, $clientid, $scope = false) {
         return true;
     }
 
+    // Auto-authorize on first time login/authorize (skip auth_question)
+    authorize_user_scope($USER->id, $clientid, $scope);
+    return true;
+
+    // The following code is kept for reference but will not be reached
+    // If you want to show the form again, uncomment the code below and comment the auto-authorize above
+    /*
     $mform = new local_oauth_authorize_form($url);
     if ($mform->is_cancelled()) {
         return false;
@@ -48,6 +55,7 @@ function get_authorization_from_form($url, $clientid, $scope = false) {
     echo $OUTPUT->footer();
 
     die();
+    */
 
 }
 
